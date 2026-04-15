@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { ShieldPlus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { FirstTimePasswordModal } from '@/features/auth/components/FirstTimePasswordModal'
 import { useAuthStore } from '@/stores/auth.store'
@@ -44,6 +45,9 @@ function DashboardPage() {
     )
   }
 
+  const displayName =
+    user.name ?? ([user.firstName, user.lastName].filter(Boolean).join(' ') || 'Administrator')
+
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-10 sm:px-8">
       <div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -61,9 +65,19 @@ function DashboardPage() {
         </div>
 
         <section className="pt-8">
+          {user.role === 'superadmin' && (
+            <button
+              onClick={() => navigate('/admin-onboard')}
+              className="mb-5 inline-flex items-center gap-2 rounded-xl border border-red-200 bg-linear-to-r from-red-600 to-indigo-700 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              <ShieldPlus className="h-4 w-4" />
+              Onboard Admin
+            </button>
+          )}
+
           <h1 className="text-2xl font-display font-bold text-slate-900">Dashboard</h1>
           <p className="mt-2 text-slate-600">
-            Welcome, {user?.name ?? 'Administrator'}. Your enterprise dashboard modules can be added here.
+            Welcome, {displayName}. Your enterprise dashboard modules can be added here.
           </p>
         </section>
       </div>

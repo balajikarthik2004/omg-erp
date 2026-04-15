@@ -2,8 +2,13 @@ import axios from 'axios'
 import { env } from '@/config/env'
 import { useAuthStore } from '@/stores/auth.store'
 
+const normalizedBaseUrl = env.VITE_API_BASE_URL.replace(/\/+$/, '').replace(
+  /\/api$/i,
+  ''
+)
+
 export const apiClient = axios.create({
-  baseURL: env.VITE_API_BASE_URL,
+  baseURL: normalizedBaseUrl,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

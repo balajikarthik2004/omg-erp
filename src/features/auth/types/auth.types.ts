@@ -1,10 +1,14 @@
-export type UserRole = 'admin' | 'manager' | 'devotee'
+export type UserRole = 'superadmin' | 'admin' | 'manager' | 'devotee'
 
 export interface AuthUser {
-  id: string
-  name: string
+  id: string | number
+  name?: string
+  firstName?: string
+  lastName?: string
   email: string
   role: UserRole
+  allowedRoutes?: string[]
+  permissions?: string[]
   isFirstTimeLogin?: boolean
 }
 

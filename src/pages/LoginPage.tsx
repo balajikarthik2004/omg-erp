@@ -1,6 +1,5 @@
 import { LoginForm } from '@/features/auth/components/LoginForm'
 import logo from '@/assets/img/logo1.png'
-
 function LoginPage() {
   return (
     <div className="min-h-screen flex bg-slate-100 relative overflow-hidden">
