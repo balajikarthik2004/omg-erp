@@ -1,8 +1,11 @@
-import React from 'react'
+import { AppProviders } from '@/app/providers'
+import { AppRouter } from '@/app/router'
 
 function App() {
   return (
-    <div>Hello world!</div>
+    <AppProviders>
+      <AppRouter />
+    </AppProviders>
   )
 }
 
