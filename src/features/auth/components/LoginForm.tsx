@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Lock, Mail } from 'lucide-react'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { loginSchema, type LoginFormValues } from '@/features/auth/schemas/login.schema'
 import { useLogin } from '@/features/auth/hooks/useLogin'
 import { cn } from '@/lib/cn'
@@ -10,6 +11,7 @@ const fieldBaseClass =
   'w-full pl-10 h-11 rounded-md border border-slate-300 bg-white/70 text-sm text-slate-900 placeholder:text-slate-400 login-input-enhanced'
 
 export function LoginForm() {
+  const navigate = useNavigate()
   const loginMutation = useLogin()
 
   const {
@@ -31,6 +33,10 @@ export function LoginForm() {
 
   const onSubmit = (values: LoginFormValues) => {
     loginMutation.mutate(values)
+  }
+
+  const handleForgotPassword = () => {
+    navigate('/forgot-password')
   }
 
   return (
@@ -68,6 +74,7 @@ export function LoginForm() {
             </label>
             <button
               type="button"
+              onClick={handleForgotPassword}
               className="text-xs text-red-600/80 hover:text-red-600 transition-colors duration-200 font-medium"
             >
               Forgot password?

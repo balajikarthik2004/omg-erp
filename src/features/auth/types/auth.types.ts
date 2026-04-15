@@ -5,6 +5,7 @@ export interface AuthUser {
   name: string
   email: string
   role: UserRole
+  isFirstTimeLogin?: boolean
 }
 
 export interface LoginRequest {
@@ -18,3 +19,37 @@ export interface AuthSession {
 }
 
 export type LoginResponse = AuthSession
+
+// Password Recovery Types - Forget Password
+export interface ForgotPasswordRequest {
+  email: string
+}
+
+export interface ForgotPasswordResponse {
+  message: string
+  success: boolean
+}
+
+export interface ResetPasswordRequest {
+  email: string
+  newPassword: string
+  confirmPassword: string
+}
+
+export interface ResetPasswordResponse {
+  message: string
+  success: boolean
+}
+
+// First Time Password Reset
+export interface FirstTimePasswordRequest {
+  temporaryPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
+export interface FirstTimePasswordResponse {
+  message: string
+  success: boolean
+  user: AuthUser
+}

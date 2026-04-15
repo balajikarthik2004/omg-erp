@@ -1,15 +1,47 @@
 import dayjs from 'dayjs'
 import { useNavigate } from 'react-router-dom'
+import { FirstTimePasswordModal } from '@/features/auth/components/FirstTimePasswordModal'
 import { useAuthStore } from '@/stores/auth.store'
 
 function DashboardPage() {
   const navigate = useNavigate()
   const user = useAuthStore((state) => state.user)
+  const setSession = useAuthStore((state) => state.setSession)
   const clearSession = useAuthStore((state) => state.clearSession)
 
   const handleLogout = () => {
     clearSession()
     navigate('/login', { replace: true })
+  }
+
+  const handleFirstTimePasswordSuccess = () => {
+    // Update user to mark first login as complete
+    if (user) {
+      setSession({
+        accessToken: localStorage.getItem('accessToken') || '',
+        user: {
+          ...user,
+          isFirstTimeLogin: false,
+        },
+      })
+    }
+  }
+
+  if (!user) {
+    navigate('/login', { replace: true })
+    return null
+  }
+
+  // If first time login, show only modal (block dashboard access)
+  if (user.isFirstTimeLogin) {
+    return (
+      <FirstTimePasswordModal
+        user={user}
+        isOpen={true}
+        onClose={handleFirstTimePasswordSuccess}
+        canDismiss={false}
+      />
+    )
   }
 
   return (
